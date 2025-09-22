@@ -1,8 +1,10 @@
-public interface PilhaInterface {    
+package PilhaArray;
+
+public interface PilhaInterface {
     public int size();
     public boolean isEmpty();
+    public boolean isFull();
     public Object top() throws PilhaVaziaExcecao;
     public void push(Object o);
     public Object pop() throws PilhaVaziaExcecao;
 }
-
