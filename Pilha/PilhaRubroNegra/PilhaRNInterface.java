@@ -1,5 +1,4 @@
 package PilhaRubroNegra;
-import PilhaRubroNegra.PilhaVaziaExcecao;
 
 public interface PilhaRNInterface {
     // pilha vermelha

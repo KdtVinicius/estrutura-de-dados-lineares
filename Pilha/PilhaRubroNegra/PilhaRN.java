@@ -1,5 +1,4 @@
 package PilhaRubroNegra;
-import PilhaRubroNegra.PilhaVaziaExcecao;
 
 public class PilhaRN implements PilhaRNInterface {
 
@@ -84,40 +83,36 @@ public class PilhaRN implements PilhaRNInterface {
         this.elementos[--this.topoPreto] = o;
     }
 
-    private boolean isFull() {
-        return (this.topoVermelho + 1) == this.topoPreto;
-    }
-
     public int size() {
         return sizeVermelho() + sizePreto();
     }
 
+    private boolean isFull() {
+        return (this.topoVermelho + 1) == this.topoPreto;
+    }
+
     private void verificarReducao() {
-        // cond adicional ? this.capacidade > CAPACIDADE_INICIAL
-        if (size() <= (this.capacidade / 3)) {
-            redimensionar(this.capacidade / 2);
+        if (this.capacidade > CAPACIDADE_INICIAL && size() <= (this.capacidade / 3)) {
+            int capacidadeNova = Math.max(this.capacidade / 2,  CAPACIDADE_INICIAL);
+            redimensionar(capacidadeNova);
         }
     }
 
     private void redimensionar(int novaCapacidade) {
-        // cria o novo array
         Object[] novoArray = new Object[novaCapacidade];
 
-        // copia da pilha vermelha
-        for (int i = 0; i <= this.topoVermelho; i++) {
+        /*for (int i = 0; i <= this.topoVermelho; i++) {
             novoArray[i] = this.elementos[i];
-        }
-        // if (this.topoVermelho + 1 >= 0) System.arraycopy(this.elementos, 0, novoArray, 0, this.topoVermelho + 1);
+        }*/
+        if (sizeVermelho() > 0) System.arraycopy(this.elementos, 0, novoArray, 0, this.topoVermelho + 1);
 
-        // calcula a nova posição inicial da pilha preta no novo array.
         int novoTopoPreto = novaCapacidade - sizePreto();
 
-        // copia a pilha preta
-        for (int i = 0; i < sizePreto(); i++) {
+        /*for (int i = 0; i < sizePreto(); i++) {
             novoArray[novoTopoPreto + i] = this.elementos[this.topoPreto + i];
-        }
+        }*/
+        if (sizePreto() > 0) System.arraycopy(this.elementos, this.topoPreto, novoArray, novoTopoPreto, sizePreto());
 
-        // atualiza as referências da classe para o novo array e seus parâmetros.
         this.elementos = novoArray;
         this.capacidade = novaCapacidade;
         this.topoPreto = novoTopoPreto;

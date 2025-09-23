@@ -1,6 +1,5 @@
 package PilhaRubroNegra;
 import java.util.Scanner;
-import PilhaRubroNegra.PilhaVaziaExcecao;
 
 public class webinterface {
 
