@@ -1,0 +1,15 @@
+# Arquivos de configuração e cache específicos do IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Pasta de saída do compilador (onde ficam os arquivos .class)
+out/
+
+# Arquivos de log gerados pela aplicação
+*.log
+
+# Arquivos de sistema operacional (comuns em Mac e Windows)
+.DS_Store
+Thumbs.db
