@@ -49,7 +49,7 @@ public class PilhaRNTeste {
         System.out.println("Top Preto (esperado: P4): " + pilha.topPreto());
 
         // O próximo push (não importa a cor) deve disparar o redimensionamento
-        System.out.println("\nEmpilhando o 11º elemento para forçar o redimensionamento...");
+        System.out.println("\nEmpilhando o 11º elemento");
         pilha.pushPreto("P5"); // Dispara o "--- Redimensionando de 10 para 20 ---"
 
         System.out.println("Após redimensionar:");
