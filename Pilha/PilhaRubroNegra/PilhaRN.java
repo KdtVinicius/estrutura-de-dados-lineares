@@ -6,16 +6,16 @@ public class PilhaRN implements PilhaRNInterface {
     private int topoVermelho;
     private int topoPreto;
     private int capacidade;
-    private static final int CAPACIDADE_INICIAL = 10;
+    private static final int capacidade_pilha = 10;
 
     public PilhaRN() {
-        this.capacidade = CAPACIDADE_INICIAL;
-        this.elementos = new Object[capacidade];
+        this.capacidade = capacidade_pilha;
+        this.elementos = new Object[capacidade_pilha];
+        this.topoPreto = capacidade_pilha;
         this.topoVermelho = -1;
-        this.topoPreto = capacidade;
     }
 
-    public boolean isEmptyVermelho() {
+    public boolean vazioVermelho() {
         return this.topoVermelho == -1;
     }
 
@@ -24,20 +24,23 @@ public class PilhaRN implements PilhaRNInterface {
     }
 
     public Object topVermelho() throws PilhaVaziaExcecao {
-        if (isEmptyVermelho()) {
+        if (vazioVermelho()) {
             throw new PilhaVaziaExcecao("A pilha vermelha está vazia.");
         }
         return this.elementos[this.topoVermelho];
     }
 
     public Object popVermelho() throws PilhaVaziaExcecao {
-        if (isEmptyVermelho()) {
+        if (vazioVermelho()) {
             throw new PilhaVaziaExcecao("A pilha vermelha está vazia.");
         }
         Object elemento = this.elementos[this.topoVermelho];
         this.elementos[this.topoVermelho--] = null;
 
-        verificarReducao();
+        if (this.capacidade > capacidade_pilha && (sizeVermelho() + sizePreto()) <= (this.capacidade / 3)) { // reduz
+            int capacidadeNova = Math.max(this.capacidade / 2,  capacidade_pilha);
+            redimensionar(capacidadeNova);
+        }
 
         return elemento;
     }
@@ -49,7 +52,7 @@ public class PilhaRN implements PilhaRNInterface {
         this.elementos[++this.topoVermelho] = o;
     }
 
-    public boolean isEmptyPreto() {
+    public boolean vazioPreto() {
         return this.topoPreto == this.capacidade;
     }
 
@@ -58,20 +61,24 @@ public class PilhaRN implements PilhaRNInterface {
     }
 
     public Object topPreto() throws PilhaVaziaExcecao {
-        if (isEmptyPreto()) {
+        if (vazioPreto()) {
             throw new PilhaVaziaExcecao("A pilha preta está vazia.");
         }
         return this.elementos[this.topoPreto];
     }
 
     public Object popPreto() throws PilhaVaziaExcecao {
-        if (isEmptyPreto()) {
+        if (vazioPreto()) {
             throw new PilhaVaziaExcecao("A pilha preta está vazia.");
         }
+        
         Object elemento = this.elementos[this.topoPreto];
         this.elementos[this.topoPreto++] = null;
 
-        verificarReducao();
+        if (this.capacidade > capacidade_pilha && (sizeVermelho() + sizePreto()) <= (this.capacidade / 3)) { // reduz
+            int capacidadeNova = Math.max(this.capacidade / 2,  capacidade_pilha);
+            redimensionar(capacidadeNova);
+        }
 
         return elemento;
     }
@@ -83,19 +90,8 @@ public class PilhaRN implements PilhaRNInterface {
         this.elementos[--this.topoPreto] = o;
     }
 
-    public int size() {
-        return sizeVermelho() + sizePreto();
-    }
-
     private boolean isFull() {
         return (this.topoVermelho + 1) == this.topoPreto;
-    }
-
-    private void verificarReducao() {
-        if (this.capacidade > CAPACIDADE_INICIAL && size() <= (this.capacidade / 3)) {
-            int capacidadeNova = Math.max(this.capacidade / 2,  CAPACIDADE_INICIAL);
-            redimensionar(capacidadeNova);
-        }
     }
 
     private void redimensionar(int novaCapacidade) {

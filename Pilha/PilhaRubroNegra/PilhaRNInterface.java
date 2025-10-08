@@ -5,16 +5,13 @@ public interface PilhaRNInterface {
     void pushVermelho(Object o);
     Object popVermelho() throws PilhaVaziaExcecao;
     Object topVermelho() throws PilhaVaziaExcecao;
-    boolean isEmptyVermelho();
+    boolean vazioVermelho();
     int sizeVermelho();
 
     // pilha preta
     void pushPreto(Object o);
     Object popPreto() throws PilhaVaziaExcecao;
     Object topPreto() throws PilhaVaziaExcecao;
-    boolean isEmptyPreto();
+    boolean vazioPreto();
     int sizePreto();
-
-    //  ambas pilhas
-    int size();
 }

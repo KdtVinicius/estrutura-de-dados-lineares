@@ -1,7 +1,7 @@
 package PilhaRubroNegra;
 
 public class PilhaVaziaExcecao extends RuntimeException {
-	 public PilhaVaziaExcecao(String err){
-         super(err);
+	 public PilhaVaziaExcecao(String erro){
+         super(erro);
 	 }
 }
